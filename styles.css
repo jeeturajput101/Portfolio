@@ -84,6 +84,12 @@ body {
     transition: all 0.3s ease;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 [data-theme="light"] body {
     background-image: 
         radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.03) 0%, transparent 50%),
@@ -503,8 +509,8 @@ body {
 
 .image-container {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: min(400px, 80vw);
+    height: min(400px, 80vw);
 }
 
 .image-placeholder {
@@ -613,6 +619,20 @@ section {
     padding: 100px 0;
 }
 
+@media (max-width: 1024px) {
+    .hero-content {
+        gap: 3rem;
+    }
+
+    .about-content {
+        gap: 3rem;
+    }
+
+    .contact-content {
+        gap: 3rem;
+    }
+}
+
 /* Glass Card Component */
 .glass-card {
     background: var(--gradient-glass);
@@ -654,12 +674,13 @@ section {
 }
 
 /* About Section */
-.profile-placeholder, img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-}
+ .profile-placeholder img,
+ .project-placeholder img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     border-radius: 20px;
+ }
 
 .about {
     background: var(--bg-secondary);
@@ -747,8 +768,8 @@ section {
 }
 
 .image-frame {
-    width: 350px;
-    height: 350px;
+    width: min(350px, 80vw);
+    height: min(350px, 80vw);
     border-radius: 20px;
     background: var(--gradient-primary);
     padding: 3px;
@@ -784,7 +805,7 @@ section {
 /* Skills Section */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 3rem;
 }
 
@@ -904,7 +925,7 @@ section {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 3rem;
 }
 
@@ -1163,6 +1184,11 @@ section {
     margin-bottom: 2rem;
 }
 
+.contact-details p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 .contact-icon {
     width: 60px;
     height: 60px;
@@ -1338,6 +1364,10 @@ section {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    section {
+        padding: 80px 0;
+    }
+
     .hamburger {
         display: flex;
     }
@@ -1354,6 +1384,8 @@ section {
         justify-content: flex-start;
         align-items: center;
         padding-top: 2rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         transition: left 0.3s ease;
     }
 
@@ -1417,9 +1449,21 @@ section {
     .projects-grid {
         grid-template-columns: 1fr;
     }
+
+    .skill-category {
+        padding: 2.25rem;
+    }
+
+    .contact-form {
+        padding: 2.25rem;
+    }
 }
 
 @media (max-width: 480px) {
+    section {
+        padding: 70px 0;
+    }
+
     .title-name {
         font-size: 2.5rem;
     }
@@ -1441,6 +1485,36 @@ section {
 
     .skill-items {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skill-category {
+        padding: 1.75rem;
+    }
+
+    .stat-item {
+        padding: 1.5rem;
+    }
+
+    .contact-form {
+        padding: 1.75rem;
+    }
+
+    .project-content {
+        padding: 1.5rem;
+    }
+
+    .project-image {
+        height: 210px;
+    }
+
+    .timeline-content {
+        padding: 1.5rem;
+    }
+
+    .contact-icon {
+        width: 52px;
+        height: 52px;
+        margin-right: 1rem;
     }
 }
 
