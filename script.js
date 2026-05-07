@@ -223,21 +223,34 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             
             try {
-                await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
-                showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+                const subject = templateParams.subject || 'New message from portfolio';
+                const bodyLines = [
+                    `Name: ${templateParams.from_name || ''}`,
+                    `Email: ${templateParams.from_email || ''}`,
+                    '',
+                    templateParams.message || ''
+                ];
+                const body = bodyLines.join('\n');
+
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(templateParams.to_email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                const popup = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+
+                if (!popup) {
+                    const mailtoUrl = `mailto:${encodeURIComponent(templateParams.to_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.location.href = mailtoUrl;
+                }
+
+                showNotification('Opening Gmail to send your message...', 'success');
                 contactForm.reset();
             } catch (error) {
                 console.error('Contact form error:', error);
-                showNotification('Failed to send message. Please try again later.', 'error');
+                showNotification('Unable to open email composer. Please try again.', 'error');
             } finally {
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
             }
         });
     }
-
-    // Initialize EmailJS
-    emailjs.init("YOUR_PUBLIC_KEY");
 
     // Utility functions
     function isValidEmail(email) {
